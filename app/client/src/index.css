@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+.TRANSITION {
+	@apply transition-all duration-300;
+}
