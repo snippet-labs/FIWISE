@@ -2,7 +2,6 @@ import { motion } from "motion/react";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 import { IoCloseCircle } from "react-icons/io5";
 import { useStudentStore } from "../../../store/useStudentStore";
-import { useInvoiceStore } from "../../../store/useInvoiceStore";
 
 interface ConfirmationTypes {
 	title: string;
@@ -16,11 +15,9 @@ const Confirmation: React.FC<ConfirmationTypes> = ({
 	onDeleteConfirmationModalClose,
 }) => {
 	const { deleteStudent } = useStudentStore();
-	const { deleteInvoice } = useInvoiceStore();
 
 	const handleDeletion = (id: string) => {
 		deleteStudent(id);
-		deleteInvoice(id);
 		onDeleteConfirmationModalClose();
 	};
 

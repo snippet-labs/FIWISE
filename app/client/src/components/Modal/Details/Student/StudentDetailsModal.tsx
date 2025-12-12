@@ -334,7 +334,10 @@ const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({
 					<Confirmation
 						title="CONFIRM DELETION ?"
 						targetSelection={student.id}
-						onDeleteConfirmationModalClose={() => setShowDeleteConfirm(false)}
+						onDeleteConfirmationModalClose={() => {
+							setShowDeleteConfirm(false);
+							onClose();
+						}}
 					/>
 				)}
 			</motion.div>
