@@ -6,26 +6,27 @@ import type { Student } from "../../../../store/types/Student.types";
 import { useStudentStore } from "../../../../store/useStudentStore";
 import { TbArrowUpFromArc, TbArrowUpToArc } from "react-icons/tb";
 import Confirmation from "../../Confirmation/ConfirmationModal";
+import { MONTHS } from "../../../../utils/Form.utils";
 
 interface StudentDetailsModalProps {
 	student: Student;
 	onClose: () => void;
 }
 
-const MONTHS = [
-	"Jan",
-	"Feb",
-	"Mar",
-	"Apr",
-	"May",
-	"Jun",
-	"Jul",
-	"Aug",
-	"Sep",
-	"Oct",
-	"Nov",
-	"Dec",
-];
+// const MONTHS = [
+// 	"Jan",
+// 	"Feb",
+// 	"Mar",
+// 	"Apr",
+// 	"May",
+// 	"Jun",
+// 	"Jul",
+// 	"Aug",
+// 	"Sep",
+// 	"Oct",
+// 	"Nov",
+// 	"Dec",
+// ];
 
 const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({
 	student: initialStudent,
