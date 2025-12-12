@@ -89,51 +89,49 @@ const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({
 			>
 				{/* HEADER */}
 				<div className="flex items-center justify-between mb-6">
-					<h2 className="text-2xl font-bold text-white">Student Details</h2>
+					<h2 className="text-2xl font-bold text-white">STUDENT DETAILS</h2>
 					<button
 						type="button"
 						onClick={onClose}
-						className="text-white hover:text-red-400 TRANSITION"
+						className="text-red-400 hover:cursor-pointer TRANSITION"
 					>
 						<IoCloseCircle size={28} />
 					</button>
 				</div>
 
 				{/* INFORMATION */}
-				<div className="space-y-4 mb-6">
+				<div className="space-y-2">
 					{/* NAME */}
-					<div className="bg-black/50 border border-white/30 rounded-lg p-4">
+					<div className="flex flex-wrap items-center justify-between bg-black border border-white/30 rounded-xl px-4 py-2">
 						<label
 							htmlFor="name"
-							className="text-xs text-white/60 uppercase tracking-wide"
+							className="text-xs text-white/60 uppercase tracking-tighter"
 						>
 							Name
 						</label>
-						<p className="text-white text-lg font-semibold mt-1">
-							{student.name}
-						</p>
+						<p className="text-white text-md font-semibold">{student.name}</p>
 					</div>
 
 					{/* LEVEL / CLASS */}
-					<div className="bg-black/50 border border-white/30 rounded-lg p-4">
+					<div className="flex flex-wrap items-center justify-between bg-black border border-white/30 rounded-xl px-4 py-3">
 						<label
 							htmlFor="class"
-							className="text-xs text-white/60 uppercase tracking-wide"
+							className="text-xs text-white/60 uppercase tracking-tighter"
 						>
 							Class
 						</label>
-						<p className="text-white text-lg font-semibold mt-1">
-							<span className="bg-purple-500 px-3 py-1 rounded-full text-sm">
-								CLASS {student.level.toUpperCase()}
+						<p className="text-white text-xs font-semibold">
+							<span className="bg-purple-500 px-3 py-1 rounded-full text-xs">
+								{student.level.toUpperCase()}
 							</span>
 						</p>
 					</div>
 
 					{/* YEAR - WITH - INCREMENT / DECREMENT */}
-					<div className="bg-black/50 border border-white/30 rounded-lg p-4">
+					<div className="bg-black border border-white/30 rounded-xl px-4 py-2">
 						<label
 							htmlFor="academic-year"
-							className="text-xs text-white/60 uppercase tracking-wide mb-2 block"
+							className="text-xs text-white/60 uppercase tracking-tighter mb-2 block"
 						>
 							Academic Year
 						</label>
@@ -141,64 +139,65 @@ const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({
 							<button
 								type="button"
 								onClick={handleYearDecrement}
-								className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-lg TRANSITION"
+								className="bg-blue-400 text-white p-2 rounded-full TRANSITION"
 							>
-								<FiMinus size={20} />
+								<FiMinus size={15} />
 							</button>
-							<span className="text-white text-2xl font-bold flex-1 text-center">
+							<span className="text-white text-xl font-bold flex-1 text-center">
 								{currentYear}
 							</span>
 							<button
 								type="button"
 								onClick={handleYearIncrement}
-								className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-lg TRANSITION"
+								className="bg-blue-400 text-white p-2 rounded-full TRANSITION"
 							>
-								<FiPlus size={20} />
+								<FiPlus size={15} />
 							</button>
 						</div>
 					</div>
 
 					{/* JOINING - DATE */}
-					<div className="grid grid-cols-2 gap-4">
-						<div className="bg-black/50 border border-white/30 rounded-lg p-4">
+					<div className="grid grid-cols-2 gap-2">
+						<div className="bg-black border border-white/30 rounded-xl px-4 py-1">
 							<label
 								htmlFor="joined"
-								className="text-xs text-white/60 uppercase tracking-wide"
+								className="text-xs text-white/60 uppercase tracking-tighter"
 							>
 								Joined
 							</label>
-							<p className="text-white text-lg font-semibold mt-1">
+							<p className="text-white text-md font-semibold">
 								{student.joined}
 							</p>
 						</div>
 
 						{/* MONTHLY - FEES */}
-						<div className="bg-black/50 border border-white/30 rounded-lg p-4">
+						<div className="bg-black border border-white/30 rounded-xl px-4 py-1">
 							<label
 								htmlFor="monthly-fees"
-								className="text-xs text-white/60 uppercase tracking-wide"
+								className="text-xs text-white/60 uppercase tracking-tigher"
 							>
 								Monthly Fees
 							</label>
-							<p className="text-white text-lg font-semibold mt-1">
-								₹{student.fees}
+							<p className="text-white text-md font-semibold">
+								<span className="text-green-500">₹</span>
+								{student.fees}
 							</p>
 						</div>
 					</div>
 
 					{/* SUBJECTS */}
-					<div className="bg-black/50 border border-white/30 rounded-lg p-4">
+					<div className="bg-black border border-white/30 rounded-xl px-4 py-2">
 						<label
 							htmlFor="subjects"
-							className="text-xs text-white/60 uppercase tracking-wide mb-2 block"
+							className="text-xs text-white/60 uppercase tracking-tighter mb-2 block"
 						>
 							Subjects
 						</label>
-						<div className="flex flex-wrap gap-2">
+						<div className="flex flex-wrap gap-1">
 							{student.subjects.map((subject) => (
 								<span
 									key={subject}
-									className="bg-emerald-500 text-white px-3 py-1 rounded-full text-sm font-medium"
+									className="bg-emerald-500 text-white px-2 py-0.5 rounded-full text-xs font-medium"
 								>
 									{subject}
 								</span>
@@ -207,18 +206,18 @@ const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({
 					</div>
 
 					{/* DAYS - ATTENDING */}
-					<div className="bg-black/50 border border-white/30 rounded-lg p-4">
+					<div className="bg-black border border-white/30 rounded-xl px-4 py-2 mb-2">
 						<label
 							htmlFor="days-attending"
-							className="text-xs text-white/60 uppercase tracking-wide mb-2 block"
+							className="text-xs text-white/60 uppercase tracking-tighter mb-2 block"
 						>
 							Days Attending
 						</label>
-						<div className="flex flex-wrap gap-2">
+						<div className="flex flex-wrap gap-1">
 							{student.days.map((day) => (
 								<span
 									key={day}
-									className="bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-medium"
+									className="bg-blue-500 text-white px-2 py-0.5 rounded-full text-xs font-medium"
 								>
 									{day}
 								</span>
@@ -243,7 +242,7 @@ const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({
 							initial={{ height: 0, opacity: 0 }}
 							animate={{ height: "auto", opacity: 1 }}
 							exit={{ height: 0, opacity: 0 }}
-							className="bg-black/50 border-2 border-blue-400/30 rounded-lg p-4 mt-2"
+							className="bg-black border-2 border-blue-400/30 rounded-lg p-4 mt-2"
 						>
 							<p className="text-white/60 text-sm mb-3">
 								Select the months when fees were paid for year {currentYear}
@@ -260,7 +259,7 @@ const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({
 											className={`py-3 px-3 rounded-lg font-bold text-sm relative overflow-hidden transform transition-all duration-200 ${
 												isPaid
 													? "bg-green-500 text-white border-2 border-green-400 shadow-lg shadow-green-500/50 scale-105"
-													: "bg-black/50 text-white/60 border-2 border-white/30 hover:border-green-400 hover:bg-black/70 hover:scale-105"
+													: "bg-black text-white/60 border-2 border-white/30 hover:border-green-400 hover:bg-black/70 hover:scale-105"
 											} ${isClicked ? "scale-95" : ""}`}
 										>
 											{isPaid && (
@@ -291,7 +290,7 @@ const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({
 										<span className="text-red-400">No months paid yet</span>
 									)}
 								</div>
-								<div className="mt-2 w-full h-2 bg-black/50 rounded-full overflow-hidden">
+								<div className="mt-2 w-full h-2 bg-black rounded-full overflow-hidden">
 									<div
 										className="h-full bg-linear-to-r from-green-400 to-green-600 transition-all duration-300"
 										style={{ width: `${(paidMonths.length / 12) * 100}%` }}
