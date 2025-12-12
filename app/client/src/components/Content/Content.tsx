@@ -25,7 +25,7 @@ const Content: React.FC = () => {
 								alt="mindlist-application-logo"
 								className="hover:cursor-pointer hover:scale-105 TRANSITION"
 							/>
-							<span className="text-white font-bold text-2xl">MINDLIST</span>
+							<span className="text-white font-bold text-2xl">FIWISE</span>
 							<div className="mt-5">
 								<p className="text-white">
 									We are currently only on mobile, stay tuned
