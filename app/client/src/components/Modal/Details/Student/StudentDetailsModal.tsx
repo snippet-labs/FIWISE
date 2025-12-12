@@ -5,6 +5,7 @@ import { FiPlus, FiMinus, FiTrash2 } from "react-icons/fi";
 import type { Student } from "../../../../store/types/Student.types";
 import { useStudentStore } from "../../../../store/useStudentStore";
 import { TbArrowUpFromArc, TbArrowUpToArc } from "react-icons/tb";
+import Confirmation from "../../Confirmation/ConfirmationModal";
 
 interface StudentDetailsModalProps {
 	student: Student;
@@ -30,7 +31,7 @@ const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({
 	student: initialStudent,
 	onClose,
 }) => {
-	const { students, updateStudent, deleteStudent } = useStudentStore();
+	const { students, updateStudent } = useStudentStore();
 	const [currentYear, setCurrentYear] = useState(initialStudent.year);
 	const [isAccordionOpen, setIsAccordionOpen] = useState(false);
 	const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
@@ -329,34 +330,11 @@ const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({
 
 				{/* DELETE - CONFIRMATION */}
 				{showDeleteConfirm && (
-					// <div className="absolute inset-0 bg-black/90 rounded-xl flex items-center justify-center p-6">
-					// 	<div className="bg-black border-2 border-red-400 rounded-lg p-6 max-w-md">
-					// 		<h3 className="text-white text-xl font-bold mb-4">
-					// 			Confirm Deletion
-					// 		</h3>
-					// 		<p className="text-white/80 mb-6">
-					// 			Are you sure you want to delete {student.name}? This action
-					// 			cannot be undone.
-					// 		</p>
-					// 		<div className="flex gap-3">
-					// 			<button
-					// 				type="button"
-					// 				onClick={handleDelete}
-					// 				className="flex-1 bg-red-500 hover:bg-red-600 text-white font-semibold py-2 rounded-lg TRANSITION"
-					// 			>
-					// 				Yes, Delete
-					// 			</button>
-					// 			<button
-					// 				type="button"
-					// 				onClick={() => setShowDeleteConfirm(false)}
-					// 				className="flex-1 bg-white/20 hover:bg-white/30 text-white font-semibold py-2 rounded-lg TRANSITION"
-					// 			>
-					// 				Cancel
-					// 			</button>
-					// 		</div>
-					// 	</div>
-					// </div>
-					<></>
+					<Confirmation
+						title="CONFIRM DELETION ?"
+						targetSelection={student.id}
+						onDeleteConfirmationModalClose={() => setShowDeleteConfirm(false)}
+					/>
 				)}
 			</motion.div>
 		</div>
