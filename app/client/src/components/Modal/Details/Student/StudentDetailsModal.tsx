@@ -234,7 +234,7 @@ const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({
 					<button
 						type="button"
 						onClick={() => setIsAccordionOpen(!isAccordionOpen)}
-						className="w-full bg-linear-to-r from-green-600/70 to-green-500/70  text-white font-bold py-3 px-4 rounded-xl TRANSITION flex items-center justify-between"
+						className={`w-full bg-linear-to-r from-green-600/70 to-green-500/70  text-white font-bold py-3 px-4 TRANSITION flex items-center justify-between ${isAccordionOpen ? "rounded-t-xl" : "rounded-xl"}`}
 					>
 						<span className="flex gap-2 text-sm">
 							FEE TRACKER <span className="text-black">{currentYear}</span>
@@ -253,7 +253,7 @@ const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({
 							initial={{ height: 0, opacity: 0 }}
 							animate={{ height: "auto", opacity: 1 }}
 							exit={{ height: 0, opacity: 0 }}
-							className="bg-black border-2 border-green-400/30 rounded-xl p-4 mt-2"
+							className="bg-black border-2 border-green-400/30 rounded-b-xl p-4"
 						>
 							<p className="text-white/60 text-xs mb-3">
 								Mark the months for fees paid for{" "}
