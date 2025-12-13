@@ -15,7 +15,7 @@ const Navigation: React.FC = () => {
 						className="w-8 md:w-10 lg:w-10 TRANSITION"
 					/>
 					<span className="text-white font-bold text-md md:text-lg lg:text-xl TRANSITION">
-						MINDLIST<span className="text-blue-400">.</span>
+						FIWISE<span className="text-blue-400">.</span>
 					</span>
 				</div>
 				<button type="button" onClick={toggleMenu} className="TRANSITION">

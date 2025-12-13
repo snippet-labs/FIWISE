@@ -2,7 +2,6 @@ import { motion } from "motion/react";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 import { IoCloseCircle } from "react-icons/io5";
 import { useStudentStore } from "../../../store/useStudentStore";
-import { useInvoiceStore } from "../../../store/useInvoiceStore";
 
 interface ConfirmationTypes {
 	title: string;
@@ -16,11 +15,9 @@ const Confirmation: React.FC<ConfirmationTypes> = ({
 	onDeleteConfirmationModalClose,
 }) => {
 	const { deleteStudent } = useStudentStore();
-	const { deleteInvoice } = useInvoiceStore();
 
 	const handleDeletion = (id: string) => {
 		deleteStudent(id);
-		deleteInvoice(id);
 		onDeleteConfirmationModalClose();
 	};
 
@@ -39,11 +36,11 @@ const Confirmation: React.FC<ConfirmationTypes> = ({
 						<button
 							type="button"
 							aria-label="confirmation-modal-check-button"
-							onClick={() => handleDeletion(targetSelection)}
+							onClick={() => handleDeletion(targetSelection as string)}
 						>
 							<IoIosCheckmarkCircle
-								size={20}
-								className="text-white hover:text-red-500 hover:cursor-pointer hover:scale-105 transition-all duration-200"
+								size={30}
+								className="text-red-500/70 TRANSITION"
 							/>
 						</button>
 						<button
@@ -51,10 +48,7 @@ const Confirmation: React.FC<ConfirmationTypes> = ({
 							aria-label="confirmation-modal-close-button"
 							onClick={onDeleteConfirmationModalClose}
 						>
-							<IoCloseCircle
-								size={20}
-								className="text-white hover:text-green-500 hover:cursor-pointer hover:scale-105 transition-all duration-200"
-							/>
+							<IoCloseCircle size={30} className=" text-green-500 TRANSITION" />
 						</button>
 					</div>
 				</div>

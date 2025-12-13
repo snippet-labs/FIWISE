@@ -3,15 +3,14 @@ import { useStudentStore } from "../../../store/useStudentStore";
 import { IoCalendarSharp, IoTimeSharp } from "react-icons/io5";
 import { MdPeopleAlt } from "react-icons/md";
 import { FaBookOpen } from "react-icons/fa";
-import type { Student as StudentType } from "../../../store/types/Student.types";
+import { DAYS, GROUPS } from "../../../utils/Form.utils";
 
 const Routine: React.FC = () => {
 	const { students } = useStudentStore();
 
 	// CURRENT - DAY - OF - THE - WEEK
 	const currentDay = useMemo(() => {
-		const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-		return days[new Date().getDay()];
+		return DAYS[new Date().getDay()];
 	}, []);
 
 	// STUDENT - FILTER - ATTENDING - CLASS - TODAY
@@ -21,32 +20,15 @@ const Routine: React.FC = () => {
 
 	// GROUP - STUDENTS - BY - CLASS
 	const groupedStudents = useMemo(() => {
-		const groups: Record<string, StudentType[]> = {
-			"1": [],
-			"2": [],
-			"3": [],
-			"4": [],
-			"5": [],
-			"6": [],
-			"7": [],
-			"8": [],
-			"9": [],
-			"10": [],
-			"11": [],
-			"12": [],
-			UG: [],
-			PG: [],
-		};
-
 		todaysStudents.forEach((student) => {
 			const level = student.level.toUpperCase();
-			if (groups[level]) {
-				groups[level].push(student);
+			if (GROUPS[level]) {
+				GROUPS[level].push(student);
 			}
 		});
 
 		// EMPTY - CLASSES
-		return Object.entries(groups).filter(
+		return Object.entries(GROUPS).filter(
 			([_, students]) => students.length > 0,
 		);
 	}, [todaysStudents]);
@@ -93,33 +75,34 @@ const Routine: React.FC = () => {
 					</div>
 
 					{/* CURRENT - DAY - BANNER */}
-					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-						{/* DAY - CARD */}
-						<div className="bg-linear-to-br from-blue-500 to-blue-600 rounded-xl p-4 border-2 border-blue-400/50">
-							<div className="flex items-center gap-3">
-								<div className="p-2 rounded-lg">
-									<IoTimeSharp size={30} className="text-white" />
-								</div>
-								<div>
-									<p className="text-white/70 text-xs uppercase">Today</p>
-									<p className="text-white text-xl font-bold">
-										{getDayName(currentDay)}
-									</p>
+					<div className="grid grid-cols-1 gap-3">
+						<div className="grid sm:grid-cols-2 gap-3">
+							{/* DAY - CARD */}
+							<div className="bg-linear-to-br from-blue-500 to-blue-600 rounded-xl p-4 border-2 border-blue-400/50">
+								<div className="flex items-center gap-3">
+									<div className="p-2 rounded-lg">
+										<IoTimeSharp size={30} className="text-white" />
+									</div>
+									<div>
+										<p className="text-white/70 text-xs uppercase">Today</p>
+										<p className="text-white text-xl font-bold">
+											{getDayName(currentDay)}
+										</p>
+									</div>
 								</div>
 							</div>
-						</div>
-
-						{/* STUDENTS - CARD - COUNT */}
-						<div className="bg-linear-to-br from-purple-500 to-purple-600 rounded-xl p-4 border-2 border-purple-400/50">
-							<div className="flex items-center gap-3">
-								<div className="p-2 rounded-lg">
-									<MdPeopleAlt size={30} className="text-white" />
-								</div>
-								<div>
-									<p className="text-white/70 text-xs uppercase">Students</p>
-									<p className="text-white text-xl font-bold">
-										{todaysStudents.length}
-									</p>
+							{/* STUDENTS - CARD - COUNT */}
+							<div className="bg-linear-to-br from-purple-500 to-purple-600 rounded-xl p-4 border-2 border-purple-400/50">
+								<div className="flex items-center gap-3">
+									<div className="p-2 rounded-lg">
+										<MdPeopleAlt size={30} className="text-white" />
+									</div>
+									<div>
+										<p className="text-white/70 text-xs uppercase">Students</p>
+										<p className="text-white text-xl font-bold">
+											{todaysStudents.length}
+										</p>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -171,33 +154,34 @@ const Routine: React.FC = () => {
 				</div>
 
 				{/* COMPACT - STUDENT - CARD - GRID */}
-				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-					{/* DAY - CARD */}
-					<div className="bg-linear-to-br from-blue-500 to-blue-600 rounded-xl p-4 border-2 border-blue-400/50">
-						<div className="flex items-center gap-3">
-							<div className="p-2 rounded-lg">
-								<IoTimeSharp size={30} className="text-white" />
-							</div>
-							<div>
-								<p className="text-white/70 text-xs uppercase">Today</p>
-								<p className="text-white text-xl font-bold">
-									{getDayName(currentDay)}
-								</p>
+				<div className="grid grid-cols-1 gap-3">
+					<div className="grid grid-cols-2 gap-3">
+						{/* DAY - CARD */}
+						<div className="bg-linear-to-br from-blue-500 to-blue-600 rounded-xl p-4 border-2 border-blue-400/50">
+							<div className="flex items-center gap-3">
+								<div className="p-2 rounded-lg">
+									<IoTimeSharp size={30} className="text-white" />
+								</div>
+								<div>
+									<p className="text-white/70 text-xs uppercase">Today</p>
+									<p className="text-white text-xl font-bold">
+										{getDayName(currentDay)}
+									</p>
+								</div>
 							</div>
 						</div>
-					</div>
-
-					{/* STUDENTS - CARD - COUNT */}
-					<div className="bg-linear-to-br from-purple-500 to-purple-600 rounded-xl p-4 border-2 border-purple-400/50">
-						<div className="flex items-center gap-3">
-							<div className="p-2 rounded-lg">
-								<MdPeopleAlt size={30} className="text-white" />
-							</div>
-							<div>
-								<p className="text-white/70 text-xs uppercase">Students</p>
-								<p className="text-white text-xl font-bold">
-									{todaysStudents.length}
-								</p>
+						{/* STUDENTS - CARD - COUNT */}
+						<div className="bg-linear-to-br from-purple-500 to-purple-600 rounded-xl p-4 border-2 border-purple-400/50">
+							<div className="flex items-center gap-3">
+								<div className="p-2 rounded-lg">
+									<MdPeopleAlt size={30} className="text-white" />
+								</div>
+								<div>
+									<p className="text-white/70 text-xs uppercase">Students</p>
+									<p className="text-white text-xl font-bold">
+										{todaysStudents.length}
+									</p>
+								</div>
 							</div>
 						</div>
 					</div>
