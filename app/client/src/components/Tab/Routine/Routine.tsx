@@ -97,16 +97,32 @@ const Routine: React.FC = () => {
 							</div>
 
 							{/* STUDENTS COUNT */}
-							<div className="bg-linear-to-br from-purple-500 to-purple-600 rounded-xl p-3 border-2 border-purple-400/50">
-								<div className="flex items-center gap-2">
-									<MdPeopleAlt size={16} className="text-white" />
-									<span className="text-white text-xs uppercase tracking-tight">
-										STUDENTS
-									</span>
+							<div className="flex items-center gap-3 mb-4">
+								<div className="relative">
+									{/* Glow */}
+									<div className="absolute inset-0 bg-purple-500/20 rounded-full blur-lg"></div>
+
+									{/* Badge */}
+									<div className="relative bg-linear-to-br from-purple-500 to-purple-600 px-4 py-2 rounded-full border-2 border-purple-400/50 flex items-center gap-2">
+										<MdPeopleAlt size={14} className="text-white" />
+										<span className="text-white font-bold text-sm uppercase tracking-tight">
+											STUDENTS
+										</span>
+									</div>
 								</div>
-								<p className="text-2xl font-bold text-white">
-									{todaysStudents.length}
-								</p>
+
+								{/* Divider */}
+								<div className="flex-1 h-px bg-linear-to-r from-white/20 to-transparent"></div>
+
+								{/* Count */}
+								<span className="text-sm text-white/40 font-medium">
+									<span className="text-blue-400 font-semibold">
+										{todaysStudents.length}
+									</span>{" "}
+									{(todaysStudents.length as number) === 1
+										? "student"
+										: "students"}
+								</span>
 							</div>
 						</div>
 
@@ -213,6 +229,7 @@ const Routine: React.FC = () => {
 									</span>
 								</div>
 							</div>
+							<div className="flex-1 h-px bg-linear-to-r from-white/20 to-transparent"></div>
 							<span className="text-sm text-white/40 font-medium">
 								<span className="text-blue-400">{classStudents.length}</span>{" "}
 								{classStudents.length === 1 ? "student" : "students"}
@@ -225,7 +242,7 @@ const Routine: React.FC = () => {
 								<button
 									key={student.id}
 									type="button"
-									className="group relative bg-black border-2 border-blue-400/30 rounded-xl p-4 text-left hover:border-blue-400 hover:shadow-lg hover:shadow-blue-400/20 hover:scale-105 transition cursor-pointer overflow-hidden"
+									className="group relative bg-black border-2 border-purple-400/20 rounded-xl p-4 text-left hover:border-purple-400 hover:shadow-lg hover:shadow-purple-400/20 hover:scale-105 transition cursor-pointer overflow-hidden"
 								>
 									<h3 className="text-white font-bold text-base mb-3 truncate">
 										{student.name}
