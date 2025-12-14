@@ -76,53 +76,53 @@ const Routine: React.FC = () => {
 
 					{/* CURRENT - DAY - BANNER */}
 					<div className="grid grid-cols-1 gap-3">
-						<div className="grid sm:grid-cols-2 gap-3">
+						<div className="grid grid-cols-2 gap-3">
 							{/* DAY - CARD */}
-							<div className="bg-linear-to-br from-blue-500 to-blue-600 rounded-xl p-4 border-2 border-blue-400/50">
-								<div className="flex items-center gap-3">
-									<div className="p-2 rounded-lg">
-										<IoTimeSharp size={30} className="text-white" />
-									</div>
-									<div>
-										<p className="text-white/70 text-xs uppercase">Today</p>
-										<p className="text-white text-xl font-bold">
-											{getDayName(currentDay)}
-										</p>
-									</div>
+							<div className="bg-linear-to-br from-blue-500 to-blue-600 rounded-xl p-3 border-2 border-blue-400/50">
+								<div className="flex items-center gap-2">
+									<IoTimeSharp size={16} className="text-white" />
+									<span className="text-white text-xs uppercase tracking-tight">
+										TODAY
+									</span>
+								</div>
+								<div>
+									<p className="text-2xl font-bold text-white">
+										{getDayName(currentDay)}
+									</p>
 								</div>
 							</div>
 							{/* STUDENTS - CARD - COUNT */}
-							<div className="bg-linear-to-br from-purple-500 to-purple-600 rounded-xl p-4 border-2 border-purple-400/50">
-								<div className="flex items-center gap-3">
-									<div className="p-2 rounded-lg">
-										<MdPeopleAlt size={30} className="text-white" />
-									</div>
-									<div>
-										<p className="text-white/70 text-xs uppercase">Students</p>
-										<p className="text-white text-xl font-bold">
-											{todaysStudents.length}
-										</p>
-									</div>
+							<div className="bg-linear-to-br from-purple-500 to-purple-600 rounded-xl p-3 border-2 border-purple-400/50">
+								<div className="flex items-center gap-2">
+									<MdPeopleAlt size={16} className="text-white" />
+									<span className="text-white text-xs uppercase tracking-tight">
+										STUDENTS
+									</span>
+								</div>
+								<div>
+									<p className="text-2xl font-bold text-white">
+										{todaysStudents.length}
+									</p>
 								</div>
 							</div>
 						</div>
 
 						{/* DATE - CARD */}
-						<div className="bg-linear-to-br from-green-500 to-green-600 rounded-xl p-4 border-2 border-green-400/50 sm:col-span-2 lg:col-span-1">
-							<div className="flex items-center gap-3">
-								<div className="p-2 rounded-lg">
-									<IoCalendarSharp size={30} className="text-white" />
-								</div>
-								<div>
-									<p className="text-white/70 text-xs uppercase">Date</p>
-									<p className="text-white text-sm font-bold">
-										{new Date().toLocaleDateString("en-US", {
-											month: "short",
-											day: "numeric",
-											year: "numeric",
-										})}
-									</p>
-								</div>
+						<div className="bg-linear-to-br from-green-500 to-green-600 rounded-xl p-4 border-2 border-green-400/50 sm:col-span-2">
+							<div className="flex items-center gap-2">
+								<IoCalendarSharp size={16} className="text-white" />
+								<span className="text-white text-xs uppercase tracking-tight">
+									DATE
+								</span>
+							</div>
+							<div>
+								<p className="text-2xl font-bold text-white">
+									{new Date().toLocaleDateString("en-US", {
+										month: "short",
+										day: "numeric",
+										year: "numeric",
+									})}
+								</p>
 							</div>
 						</div>
 					</div>
@@ -157,51 +157,51 @@ const Routine: React.FC = () => {
 				<div className="grid grid-cols-1 gap-3">
 					<div className="grid grid-cols-2 gap-3">
 						{/* DAY - CARD */}
-						<div className="bg-linear-to-br from-blue-500 to-blue-600 rounded-xl p-4 border-2 border-blue-400/50">
-							<div className="flex items-center gap-3">
-								<div className="p-2 rounded-lg">
-									<IoTimeSharp size={30} className="text-white" />
-								</div>
-								<div>
-									<p className="text-white/70 text-xs uppercase">Today</p>
-									<p className="text-white text-xl font-bold">
-										{getDayName(currentDay)}
-									</p>
-								</div>
+						<div className="bg-linear-to-br from-blue-500 to-blue-600 rounded-xl p-3 border-2 border-blue-400/50">
+							<div className="flex items-center gap-2">
+								<IoTimeSharp size={16} className="text-white" />
+								<span className="text-white text-xs uppercase tracking-tight">
+									TODAY
+								</span>
+							</div>
+							<div>
+								<p className="text-2xl font-bold text-white">
+									{getDayName(currentDay)}
+								</p>
 							</div>
 						</div>
 						{/* STUDENTS - CARD - COUNT */}
-						<div className="bg-linear-to-br from-purple-500 to-purple-600 rounded-xl p-4 border-2 border-purple-400/50">
-							<div className="flex items-center gap-3">
-								<div className="p-2 rounded-lg">
-									<MdPeopleAlt size={30} className="text-white" />
-								</div>
-								<div>
-									<p className="text-white/70 text-xs uppercase">Students</p>
-									<p className="text-white text-xl font-bold">
-										{todaysStudents.length}
-									</p>
-								</div>
+						<div className="bg-linear-to-br from-purple-500 to-purple-600 rounded-xl p-3 border-2 border-purple-400/50">
+							<div className="flex items-center gap-2">
+								<MdPeopleAlt size={16} className="text-white" />
+								<span className="text-white text-xs uppercase tracking-tight">
+									STUDENTS
+								</span>
+							</div>
+							<div>
+								<p className="text-2xl font-bold text-white">
+									{todaysStudents.length}
+								</p>
 							</div>
 						</div>
 					</div>
 
 					{/* DATE - CARD */}
-					<div className="bg-linear-to-br from-green-500 to-green-600 rounded-xl p-4 border-2 border-green-400/50 sm:col-span-2 lg:col-span-1">
-						<div className="flex items-center gap-3">
-							<div className="p-2 rounded-lg">
-								<IoCalendarSharp size={30} className="text-white" />
-							</div>
-							<div>
-								<p className="text-white/70 text-xs uppercase">Date</p>
-								<p className="text-white text-sm font-bold">
-									{new Date().toLocaleDateString("en-US", {
-										month: "short",
-										day: "numeric",
-										year: "numeric",
-									})}
-								</p>
-							</div>
+					<div className="bg-linear-to-br from-green-500 to-green-600 rounded-xl p-4 border-2 border-green-400/50 sm:col-span-2">
+						<div className="flex items-center gap-2">
+							<IoCalendarSharp size={16} className="text-white" />
+							<span className="text-white text-xs uppercase tracking-tight">
+								DATE
+							</span>
+						</div>
+						<div>
+							<p className="text-2xl font-bold text-white">
+								{new Date().toLocaleDateString("en-US", {
+									month: "short",
+									day: "numeric",
+									year: "numeric",
+								})}
+							</p>
 						</div>
 					</div>
 				</div>
