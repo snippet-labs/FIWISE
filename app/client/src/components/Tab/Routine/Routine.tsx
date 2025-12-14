@@ -8,32 +8,37 @@ import { DAYS, GROUPS } from "../../../utils/Form.utils";
 const Routine: React.FC = () => {
 	const { students } = useStudentStore();
 
-	// CURRENT - DAY - OF - THE - WEEK
+	// CURRENT DAY OF THE WEEK
 	const currentDay = useMemo(() => {
 		return DAYS[new Date().getDay()];
 	}, []);
 
-	// STUDENT - FILTER - ATTENDING - CLASS - TODAY
+	// STUDENTS ATTENDING TODAY
 	const todaysStudents = useMemo(() => {
 		return students.filter((student) => student.days.includes(currentDay));
 	}, [students, currentDay]);
 
-	// GROUP - STUDENTS - BY - CLASS
+	// GROUP STUDENTS BY CLASS
 	const groupedStudents = useMemo(() => {
+		const groups: Record<string, typeof students> = {};
+
+		Object.keys(GROUPS).forEach((key) => {
+			groups[key] = [];
+		});
+
 		todaysStudents.forEach((student) => {
 			const level = student.level.toUpperCase();
-			if (GROUPS[level]) {
-				GROUPS[level].push(student);
+			if (groups[level]) {
+				groups[level].push(student);
 			}
 		});
 
-		// EMPTY - CLASSES
-		return Object.entries(GROUPS).filter(
+		return Object.entries(groups).filter(
 			([_, students]) => students.length > 0,
 		);
 	}, [todaysStudents]);
 
-	// DAY - NAME
+	// DAY NAME
 	const getDayName = (day: string) => {
 		const dayNames: Record<string, string> = {
 			Sun: "Sunday",
@@ -47,6 +52,7 @@ const Routine: React.FC = () => {
 		return dayNames[day] || day;
 	};
 
+	// EMPTY - STATE
 	if (students.length === 0) {
 		return (
 			<div className="mt-50 flex flex-col items-center justify-center py-20">
@@ -74,10 +80,10 @@ const Routine: React.FC = () => {
 						<h1 className="text-2xl font-bold text-white">ROUTINE</h1>
 					</div>
 
-					{/* CURRENT - DAY - BANNER */}
+					{/* INFO CARDS */}
 					<div className="grid grid-cols-1 gap-3">
 						<div className="grid grid-cols-2 gap-3">
-							{/* DAY - CARD */}
+							{/* DAY CARD */}
 							<div className="bg-linear-to-br from-blue-500 to-blue-600 rounded-xl p-3 border-2 border-blue-400/50">
 								<div className="flex items-center gap-2">
 									<IoTimeSharp size={16} className="text-white" />
@@ -85,13 +91,12 @@ const Routine: React.FC = () => {
 										TODAY
 									</span>
 								</div>
-								<div>
-									<p className="text-2xl font-bold text-white">
-										{getDayName(currentDay)}
-									</p>
-								</div>
+								<p className="text-2xl font-bold text-white">
+									{getDayName(currentDay)}
+								</p>
 							</div>
-							{/* STUDENTS - CARD - COUNT */}
+
+							{/* STUDENTS COUNT */}
 							<div className="bg-linear-to-br from-purple-500 to-purple-600 rounded-xl p-3 border-2 border-purple-400/50">
 								<div className="flex items-center gap-2">
 									<MdPeopleAlt size={16} className="text-white" />
@@ -99,40 +104,34 @@ const Routine: React.FC = () => {
 										STUDENTS
 									</span>
 								</div>
-								<div>
-									<p className="text-2xl font-bold text-white">
-										{todaysStudents.length}
-									</p>
-								</div>
+								<p className="text-2xl font-bold text-white">
+									{todaysStudents.length}
+								</p>
 							</div>
 						</div>
 
-						{/* DATE - CARD */}
-						<div className="bg-linear-to-br from-green-500 to-green-600 rounded-xl p-4 border-2 border-green-400/50 sm:col-span-2">
+						{/* DATE CARD */}
+						<div className="bg-linear-to-br from-green-500 to-green-600 rounded-xl p-4 border-2 border-green-400/50">
 							<div className="flex items-center gap-2">
 								<IoCalendarSharp size={16} className="text-white" />
 								<span className="text-white text-xs uppercase tracking-tight">
 									DATE
 								</span>
 							</div>
-							<div>
-								<p className="text-2xl font-bold text-white">
-									{new Date().toLocaleDateString("en-US", {
-										month: "short",
-										day: "numeric",
-										year: "numeric",
-									})}
-								</p>
-							</div>
+							<p className="text-2xl font-bold text-white">
+								{new Date().toLocaleDateString("en-US", {
+									month: "short",
+									day: "numeric",
+									year: "numeric",
+								})}
+							</p>
 						</div>
 					</div>
 				</div>
 
-				{/* NO - SCHEDULED - CLASSES */}
+				{/* NO CLASSES MESSAGE */}
 				<div className="flex flex-col items-center justify-center py-20">
-					<div className="relative">
-						<IoCalendarSharp size={80} className="text-white/20" />
-					</div>
+					<IoCalendarSharp size={80} className="text-white/20" />
 					<div className="text-white font-bold text-xl mt-6">
 						NO CLASSES TODAY
 					</div>
@@ -144,6 +143,7 @@ const Routine: React.FC = () => {
 		);
 	}
 
+	// MAIN - VIEW
 	return (
 		<div>
 			{/* HEADER */}
@@ -153,10 +153,9 @@ const Routine: React.FC = () => {
 					<h1 className="text-2xl font-bold text-white">ROUTINE</h1>
 				</div>
 
-				{/* COMPACT - STUDENT - CARD - GRID */}
+				{/* INFO CARDS */}
 				<div className="grid grid-cols-1 gap-3">
 					<div className="grid grid-cols-2 gap-3">
-						{/* DAY - CARD */}
 						<div className="bg-linear-to-br from-blue-500 to-blue-600 rounded-xl p-3 border-2 border-blue-400/50">
 							<div className="flex items-center gap-2">
 								<IoTimeSharp size={16} className="text-white" />
@@ -164,13 +163,11 @@ const Routine: React.FC = () => {
 									TODAY
 								</span>
 							</div>
-							<div>
-								<p className="text-2xl font-bold text-white">
-									{getDayName(currentDay)}
-								</p>
-							</div>
+							<p className="text-2xl font-bold text-white">
+								{getDayName(currentDay)}
+							</p>
 						</div>
-						{/* STUDENTS - CARD - COUNT */}
+
 						<div className="bg-linear-to-br from-purple-500 to-purple-600 rounded-xl p-3 border-2 border-purple-400/50">
 							<div className="flex items-center gap-2">
 								<MdPeopleAlt size={16} className="text-white" />
@@ -178,88 +175,78 @@ const Routine: React.FC = () => {
 									STUDENTS
 								</span>
 							</div>
-							<div>
-								<p className="text-2xl font-bold text-white">
-									{todaysStudents.length}
-								</p>
-							</div>
+							<p className="text-2xl font-bold text-white">
+								{todaysStudents.length}
+							</p>
 						</div>
 					</div>
 
-					{/* DATE - CARD */}
-					<div className="bg-linear-to-br from-green-500 to-green-600 rounded-xl p-4 border-2 border-green-400/50 sm:col-span-2">
+					<div className="bg-linear-to-br from-green-500 to-green-600 rounded-xl p-4 border-2 border-green-400/50">
 						<div className="flex items-center gap-2">
 							<IoCalendarSharp size={16} className="text-white" />
 							<span className="text-white text-xs uppercase tracking-tight">
 								DATE
 							</span>
 						</div>
-						<div>
-							<p className="text-2xl font-bold text-white">
-								{new Date().toLocaleDateString("en-US", {
-									month: "short",
-									day: "numeric",
-									year: "numeric",
-								})}
-							</p>
-						</div>
+						<p className="text-2xl font-bold text-white">
+							{new Date().toLocaleDateString("en-US", {
+								month: "short",
+								day: "numeric",
+								year: "numeric",
+							})}
+						</p>
 					</div>
 				</div>
 			</div>
-			{/* STUDENTS - BY - CLASS - CATEGORIZATION */}
+
+			{/* STUDENTS BY CLASS */}
 			<div className="space-y-8">
 				{groupedStudents.map(([className, classStudents]) => (
 					<div key={className}>
-						{/* HEADER */}
+						{/* CLASS HEADER */}
 						<div className="flex items-center gap-3 mb-4">
 							<div className="relative">
-								<div className="absolute inset-0 bg-purple-500/20 rounded-full blur-lg"></div>
+								<div className="absolute inset-0 bg-purple-500/20 rounded-full blur-lg" />
 								<div className="relative bg-linear-to-br from-purple-500 to-purple-600 px-4 py-2 rounded-full border-2 border-purple-400/50">
 									<span className="text-white font-bold text-sm">
 										CLASS {className}
 									</span>
 								</div>
 							</div>
-							<div className="flex-1 h-px Bg-linear-to-r from-white/20 to-transparent"></div>
 							<span className="text-sm text-white/40 font-medium">
 								<span className="text-blue-400">{classStudents.length}</span>{" "}
 								{classStudents.length === 1 ? "student" : "students"}
 							</span>
 						</div>
 
-						{/* STUDENTS - CARD - GRID */}
+						{/* STUDENT CARDS */}
 						<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
 							{classStudents.map((student) => (
 								<button
-									type="button"
 									key={student.id}
-									className="group relative bg-black border-2 border-blue-400/30 rounded-xl p-4 text-left hover:border-blue-400 hover:shadow-lg hover:shadow-blue-400/20 hover:scale-105 TRANSITION cursor-pointer overflow-hidden"
+									type="button"
+									className="group relative bg-black border-2 border-blue-400/30 rounded-xl p-4 text-left hover:border-blue-400 hover:shadow-lg hover:shadow-blue-400/20 hover:scale-105 transition cursor-pointer overflow-hidden"
 								>
-									{/* STUDENT - INFORMATION */}
-									<div className="relative">
-										{/* NAME */}
-										<h3 className="text-white font-bold text-base mb-3 truncate">
-											{student.name}
-										</h3>
+									<h3 className="text-white font-bold text-base mb-3 truncate">
+										{student.name}
+									</h3>
 
-										{/* SUBJECTS */}
-										<div>
-											<div className="flex items-center gap-2 mb-2">
-												<FaBookOpen size={12} className="text-blue-400" />
-												<span className="text-white/60 text-xs uppercase">
-													Subjects
+									<div>
+										<div className="flex items-center gap-2 mb-2">
+											<FaBookOpen size={12} className="text-blue-400" />
+											<span className="text-white/60 text-xs uppercase">
+												Subjects
+											</span>
+										</div>
+										<div className="flex flex-wrap gap-1.5">
+											{student.subjects.map((subject) => (
+												<span
+													key={subject}
+													className="bg-emerald-500 text-white px-2 py-1 rounded-full text-xs font-medium border border-emerald-400/30"
+												>
+													{subject}
 												</span>
-											</div>
-											<div className="flex flex-wrap gap-1.5">
-												{student.subjects.map((subject) => (
-													<span
-														key={subject}
-														className="bg-emerald-500 text-white px-2 py-1 rounded-full text-xs font-medium border border-emerald-400/30"
-													>
-														{subject}
-													</span>
-												))}
-											</div>
+											))}
 										</div>
 									</div>
 								</button>
