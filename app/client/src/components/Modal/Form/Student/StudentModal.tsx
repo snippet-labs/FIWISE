@@ -60,7 +60,6 @@ const StudentModal: React.FC<StudentModalProps> = ({
 
 	const handleNewStudentRegistration = (data: StudentFormData) => {
 		try {
-			// parse with Zod again to ensure final shape (includes defaults)
 			const validatedData = studentFormSchema.parse({
 				...data,
 				subjects: selectedSubjects,
@@ -282,7 +281,7 @@ const StudentModal: React.FC<StudentModalProps> = ({
 					<div className="flex gap-2 pt-2">
 						<button
 							type="submit"
-							className="flex-1 px-4 py-2 text-sm bg-blue-500 hover:bg-blue-600 text-white rounded-full font-semibold hover:cursor-pointer TRANSITION"
+							className="flex-1 px-4 py-2 text-sm bg-blue-500 hover:bg-blue-600 text-white rounded-xl font-semibold hover:cursor-pointer TRANSITION"
 						>
 							ADD
 						</button>

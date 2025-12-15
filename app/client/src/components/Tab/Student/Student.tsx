@@ -117,7 +117,7 @@ const Student: React.FC = () => {
 				</div>
 
 				{/* QUICK - STAT - CARDS */}
-				<div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+				<div className="grid grid-cols-2 gap-3 mb-4">
 					<div className="bg-linear-to-br from-blue-500 to-blue-600 rounded-xl p-3">
 						<div className="flex items-center gap-2 mb-1">
 							<MdPeopleAlt size={16} className="text-white" />

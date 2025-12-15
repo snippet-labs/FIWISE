@@ -322,7 +322,7 @@ const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({
 					<button
 						type="button"
 						onClick={() => setShowDeleteConfirm(true)}
-						className="flex-1 bg-linear-to-br from-red-500/70 to-red-600/70 text-white font-semibold py-2 rounded-full TRANSITION flex items-center justify-center gap-2"
+						className="flex-1 bg-linear-to-br from-red-500/70 to-red-600/70 text-white font-semibold py-2 rounded-xl TRANSITION flex items-center justify-center gap-2"
 					>
 						<FiTrash2 size={18} />
 						DELETE RECORD
