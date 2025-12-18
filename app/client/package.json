@@ -1,37 +1,37 @@
 {
-	"name": "@monotecture/client",
-	"private": true,
-	"version": "0.0.0",
-	"type": "module",
-	"scripts": {
-		"dev": "vite --host",
-		"build": "tsc -b && vite build",
-		"preview": "vite preview"
-	},
-	"dependencies": {
-		"@hookform/resolvers": "^5.2.2",
-		"@monotecture/server": "workspace:*",
-		"@tailwindcss/vite": "^4.1.17",
-		"install": "^0.13.0",
-		"ldrs": "^1.1.9",
-		"motion": "^12.23.25",
-		"nanoid": "^5.1.6",
-		"react": "^19.2.0",
-		"react-dom": "^19.2.0",
-		"react-hook-form": "^7.68.0",
-		"react-icons": "^5.5.0",
-		"tailwindcss": "^4.1.17",
-		"zod": "^4.1.13",
-		"zustand": "^5.0.9"
-	},
-	"devDependencies": {
-		"@types/node": "^24.10.1",
-		"@types/react": "^19.2.5",
-		"@types/react-dom": "^19.2.3",
-		"@vitejs/plugin-react": "^5.1.1",
-		"babel-plugin-react-compiler": "^1.0.0",
-		"globals": "^16.5.0",
-		"typescript": "~5.9.3",
-		"vite": "^7.2.4"
-	}
+  "name": "@monotecture/client",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
+    "@monotecture/server": "workspace:*",
+    "@tailwindcss/vite": "^4.1.17",
+    "install": "^0.13.0",
+    "ldrs": "^1.1.9",
+    "motion": "^12.23.25",
+    "nanoid": "^5.1.6",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-hook-form": "^7.68.0",
+    "react-icons": "^5.5.0",
+    "tailwindcss": "^4.1.17",
+    "zod": "^4.1.13",
+    "zustand": "^5.0.9"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.5",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.1",
+    "babel-plugin-react-compiler": "^1.0.0",
+    "globals": "^16.5.0",
+    "typescript": "~5.9.3",
+    "vite": "^7.2.4"
+  }
 }

@@ -7,7 +7,7 @@ const rootElement = document.getElementById("root");
 if (!rootElement) throw new Error("ROOT IS MISSING !");
 
 createRoot(rootElement).render(
-	<StrictMode>
-		<App />
-	</StrictMode>,
+  <StrictMode>
+    <App />
+  </StrictMode>,
 );
