@@ -3,7 +3,10 @@ import { useStudentStore } from "../../../store/useStudentStore";
 import { IoCalendarSharp, IoTimeSharp } from "react-icons/io5";
 import { MdPeopleAlt } from "react-icons/md";
 import { FaBookOpen } from "react-icons/fa";
-import { DAYS, GROUPS } from "../../../utils/Form.utils";
+import { DAYS } from "../../../utils/Form.utils";
+import { getCurrentDayName } from "../../../utils/formatters";
+import { groupStudentsByClass } from "../../../utils/classGrouping";
+import EmptyState from "../../EmptyState/EmptyState";
 
 const Routine: React.FC = () => {
 	const { students } = useStudentStore();
@@ -20,53 +23,18 @@ const Routine: React.FC = () => {
 
 	// GROUP STUDENTS BY CLASS
 	const groupedStudents = useMemo(() => {
-		const groups: Record<string, typeof students> = {};
-
-		Object.keys(GROUPS).forEach((key) => {
-			groups[key] = [];
-		});
-
-		todaysStudents.forEach((student) => {
-			const level = student.level.toUpperCase();
-			if (groups[level]) {
-				groups[level].push(student);
-			}
-		});
-
-		return Object.entries(groups).filter(
-			([_, students]) => students.length > 0,
-		);
+		return groupStudentsByClass(todaysStudents);
 	}, [todaysStudents]);
 
-	// DAY NAME
-	const getDayName = (day: string) => {
-		const dayNames: Record<string, string> = {
-			Sun: "Sunday",
-			Mon: "Monday",
-			Tue: "Tuesday",
-			Wed: "Wednesday",
-			Thu: "Thursday",
-			Fri: "Friday",
-			Sat: "Saturday",
-		};
-		return dayNames[day] || day;
-	};
 
 	// EMPTY - STATE
 	if (students.length === 0) {
 		return (
-			<div className="mt-50 flex flex-col items-center justify-center py-20">
-				<div className="relative">
-					<div className="absolute inset-0 animate-ping">
-						<IoCalendarSharp size={80} className="text-blue-400/20" />
-					</div>
-					<IoCalendarSharp size={80} className="text-blue-400" />
-				</div>
-				<div className="text-white font-bold text-xl mt-6">NO CLASSES</div>
-				<p className="text-white/60 text-sm mt-2">
-					"ADD STUDENT" in the menu to get started
-				</p>
-			</div>
+			<EmptyState
+				icon={IoCalendarSharp}
+				title="NO CLASSES"
+				message='"ADD STUDENT" in the menu to get started'
+			/>
 		);
 	}
 
@@ -92,7 +60,7 @@ const Routine: React.FC = () => {
 									</span>
 								</div>
 								<p className="text-2xl font-bold text-white">
-									{getDayName(currentDay)}
+									{getCurrentDayName(DAYS.indexOf(currentDay))}
 								</p>
 							</div>
 
@@ -152,7 +120,7 @@ const Routine: React.FC = () => {
 						NO CLASSES TODAY
 					</div>
 					<p className="text-white/60 text-sm mt-2">
-						No classes scheduled for {getDayName(currentDay)}
+						No classes scheduled for {getCurrentDayName(DAYS.indexOf(currentDay))}
 					</p>
 				</div>
 			</div>
@@ -180,7 +148,7 @@ const Routine: React.FC = () => {
 								</span>
 							</div>
 							<p className="text-2xl font-bold text-white">
-								{getDayName(currentDay)}
+								{getCurrentDayName(DAYS.indexOf(currentDay))}
 							</p>
 						</div>
 

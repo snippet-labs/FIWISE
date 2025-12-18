@@ -26,7 +26,11 @@ export const studentFormSchema = z.object({
 		.min(2000, { message: "Year must be 2000 or later" })
 		.max(2100, { message: "Year must be 2100 or earlier" }),
 
-	joined: z.string().min(1, { message: "Date is required" }).trim(),
+	joined: z
+		.number({ message: "Month is required" })
+		.int({ message: "Month must be a whole number" })
+		.min(1, { message: "Month must be at least 1" })
+		.max(12, { message: "Month must not exceed 12" }),
 
 	subjects: z
 		.array(z.string())
