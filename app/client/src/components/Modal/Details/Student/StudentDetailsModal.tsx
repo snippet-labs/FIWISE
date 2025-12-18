@@ -7,26 +7,16 @@ import { useStudentStore } from "../../../../store/useStudentStore";
 import { TbArrowUpFromArc, TbArrowUpToArc } from "react-icons/tb";
 import Confirmation from "../../Confirmation/ConfirmationModal";
 import { MONTHS } from "../../../../utils/Form.utils";
+import {
+	MONTHS_PER_YEAR,
+	ANIMATION_TIMINGS,
+	CURRENCY_SYMBOL,
+} from "../../../../constants";
 
 interface StudentDetailsModalProps {
 	student: Student;
 	onClose: () => void;
 }
-
-// const MONTHS = [
-// 	"Jan",
-// 	"Feb",
-// 	"Mar",
-// 	"Apr",
-// 	"May",
-// 	"Jun",
-// 	"Jul",
-// 	"Aug",
-// 	"Sep",
-// 	"Oct",
-// 	"Nov",
-// 	"Dec",
-// ];
 
 const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({
 	student: initialStudent,
@@ -59,7 +49,7 @@ const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({
 
 	const handleMonthToggle = (month: string) => {
 		setClickedMonth(month);
-		setTimeout(() => setClickedMonth(null), 300);
+		setTimeout(() => setClickedMonth(null), ANIMATION_TIMINGS.MONTH_CLICK);
 
 		const currentPaidMonths = student.feeTracking[currentYear] || [];
 		const newPaidMonths = currentPaidMonths.includes(month)
@@ -74,15 +64,9 @@ const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({
 		updateStudent(student.id, { feeTracking: newFeeTracking });
 	};
 
-	// const handleDelete = () => {
-	// 	deleteStudent(student.id);
-	// 	onClose();
-	// };
-
 	return (
 		<div className="fixed inset-0 z-3000 flex items-center justify-center p-4 overflow-y-auto">
 			<div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
-			{/* <button type="button" onClick={onClose}></button> */}
 
 			<motion.div
 				initial={{ scale: 0.9, opacity: 0 }}
@@ -182,7 +166,7 @@ const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({
 								Monthly Fees
 							</label>
 							<p className="text-white text-md font-semibold">
-								<span className="text-green-500">₹</span>
+								<span className="text-green-500">{CURRENCY_SYMBOL}</span>
 								{student.fees}
 							</p>
 						</div>
@@ -274,11 +258,6 @@ const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({
 													: "bg-black text-white/60 border-2 border-white/30"
 											} ${isClicked ? "scale-95" : ""}`}
 										>
-											{/* {isPaid && (
-												<span className="absolute inset-0 flex items-center justify-center text-white text-xs">
-													✓
-												</span>
-											)} */}
 											<span className={isPaid ? "" : "opacity-70"}>
 												{month}
 											</span>
@@ -292,24 +271,22 @@ const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({
 										Paid months
 									</span>
 									<span className="text-white font-bold text-lg">
-										{paidMonths.length}/12
+										{paidMonths.length}/{MONTHS_PER_YEAR}
 									</span>
 								</div>
-								<div className="mt-2 text-white text-sm font-semibold">
-									{paidMonths.length > 0 ? (
-										<span className="text-green-400">
-											{/* {paidMonths.join(", ")}  */}
-										</span>
-									) : (
+								{paidMonths.length === 0 && (
+									<div className="mt-2 text-white text-sm font-semibold">
 										<span className="text-red-400 text-xs uppercase">
 											All fees due for this year
 										</span>
-									)}
-								</div>
+									</div>
+								)}
 								<div className="mt-2 w-full h-2 bg-black rounded-full overflow-hidden">
 									<div
 										className="h-full bg-linear-to-r from-green-400/80 to-green-600/80 TRASITION"
-										style={{ width: `${(paidMonths.length / 12) * 100}%` }}
+										style={{
+											width: `${(paidMonths.length / MONTHS_PER_YEAR) * 100}%`,
+										}}
 									/>
 								</div>
 							</div>

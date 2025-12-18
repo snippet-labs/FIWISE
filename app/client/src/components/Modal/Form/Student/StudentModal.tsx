@@ -175,14 +175,16 @@ const StudentModal: React.FC<StudentModalProps> = ({
 								htmlFor="joined"
 								className="block text-xs font-medium text-white mb-1"
 							>
-								Joining Date <span className="text-red-400">*</span>
+								Month <span className="text-red-400">*</span>
 							</label>
 							<input
 								id="joined"
-								type="text"
-								{...register("joined")}
+								type="number"
+								min="1"
+								max="12"
+								{...register("joined", { valueAsNumber: true })}
 								className="w-full px-3 py-1.5 text-sm bg-black/50 border border-white/30 rounded-lg text-white placeholder-white/50 focus:border-blue-400 focus:outline-none TRANSITION"
-								placeholder="dd-mm-yy"
+								placeholder="1-12"
 							/>
 							{errors.joined && (
 								<p className="mt-0.5 text-xs text-red-400">
