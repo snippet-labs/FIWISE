@@ -26,7 +26,6 @@ const Routine: React.FC = () => {
 		return groupStudentsByClass(todaysStudents);
 	}, [todaysStudents]);
 
-
 	// EMPTY - STATE
 	if (students.length === 0) {
 		return (
@@ -120,7 +119,8 @@ const Routine: React.FC = () => {
 						NO CLASSES TODAY
 					</div>
 					<p className="text-white/60 text-sm mt-2">
-						No classes scheduled for {getCurrentDayName(DAYS.indexOf(currentDay))}
+						No classes scheduled for{" "}
+						{getCurrentDayName(DAYS.indexOf(currentDay))}
 					</p>
 				</div>
 			</div>

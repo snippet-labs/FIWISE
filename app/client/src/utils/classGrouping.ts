@@ -21,9 +21,7 @@ export function groupStudentsByClass(
 	});
 }
 
-export function sortByClassOrder<T extends { level: string }>(
-	items: T[],
-): T[] {
+export function sortByClassOrder<T extends { level: string }>(items: T[]): T[] {
 	return [...items].sort((a, b) => {
 		const orderA = CLASS_ORDER_MAP[a.level.toLowerCase()] ?? 999;
 		const orderB = CLASS_ORDER_MAP[b.level.toLowerCase()] ?? 999;

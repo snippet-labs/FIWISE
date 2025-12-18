@@ -59,7 +59,6 @@ const Student: React.FC = () => {
 		return groupStudentsByClass(filteredStudents);
 	}, [filteredStudents]);
 
-
 	if (students.length === 0) {
 		return (
 			<EmptyState
