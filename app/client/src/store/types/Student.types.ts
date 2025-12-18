@@ -3,7 +3,7 @@ export interface Student {
 	name: string;
 	level: string;
 	year: number;
-	joined: string;
+	joined: number;
 	subjects: string[];
 	days: string[];
 	fees: number;

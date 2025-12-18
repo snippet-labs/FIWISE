@@ -5,7 +5,7 @@ interface StudentCardProps {
 	name: string;
 	level: string;
 	year: number;
-	joined: string;
+	joined: number;
 	subjects: string[];
 	days: string[];
 	fees: number;
@@ -119,7 +119,7 @@ export default StudentCard;
  * name (Name of the student)
  * level (Level/Class of the student)
  * year (Year of joining)
- * joined (Full information of the joining date)
+ * joined (Month of joining as a number 1-12)
  * subjects (The number of subjects undertaken by the student)
  * days (Days in a week in which the student is attending classes)
  * fees (Monthly fee structure)

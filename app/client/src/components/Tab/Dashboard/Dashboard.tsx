@@ -5,11 +5,18 @@ import { MdPeopleAlt } from "react-icons/md";
 import { FaRupeeSign, FaCalendarCheck } from "react-icons/fa";
 import { IoStatsChart } from "react-icons/io5";
 import { FiPlus, FiMinus } from "react-icons/fi";
+import { MONTHS_PER_YEAR, CURRENCY_SYMBOL } from "../../../constants";
+import {
+	formatCurrency,
+	formatPercentage,
+	formatMonthShort,
+} from "../../../utils/formatters";
+import EmptyState from "../../EmptyState/EmptyState";
 
 const Dashboard: React.FC = () => {
 	const { students } = useStudentStore();
 	const currentYear = new Date().getFullYear();
-	const currentMonth = new Date().toLocaleString("en-US", { month: "short" });
+	const currentMonth = formatMonthShort();
 	const [selectedYear, setSelectedYear] = useState(currentYear);
 
 	// STATISTICAL - ANALYSIS
@@ -35,7 +42,7 @@ const Dashboard: React.FC = () => {
 
 		students.forEach((student) => {
 			totalMonthlyCapacity += student.fees;
-			totalYearlyCapacity += student.fees * 12;
+			totalYearlyCapacity += student.fees * MONTHS_PER_YEAR;
 
 			const paidMonths = student.feeTracking[selectedYear] || [];
 			yearlyRevenue += paidMonths.length * student.fees;
@@ -47,7 +54,7 @@ const Dashboard: React.FC = () => {
 			}
 
 			// YEARLY - PAYMENT - STATUS
-			if (paidMonths.length === 12) {
+			if (paidMonths.length === MONTHS_PER_YEAR) {
 				studentsFullyPaid++;
 			} else if (paidMonths.length > 0) {
 				studentsPartialPaid++;
@@ -58,12 +65,12 @@ const Dashboard: React.FC = () => {
 
 		const currentMonthPaymentRate =
 			totalStudents > 0
-				? Math.round((studentsWithFeesPaid / totalStudents) * 100)
+				? formatPercentage((studentsWithFeesPaid / totalStudents) * 100)
 				: 0;
 
 		const yearlyPaymentRate =
 			totalYearlyCapacity > 0
-				? Math.round((yearlyRevenue / totalYearlyCapacity) * 100)
+				? formatPercentage((yearlyRevenue / totalYearlyCapacity) * 100)
 				: 0;
 
 		const outstandingThisMonth = totalMonthlyCapacity - currentMonthRevenue;
@@ -80,11 +87,7 @@ const Dashboard: React.FC = () => {
 		// NEW STUDENTS
 		const recentStudents = [...students]
 			.sort((a, b) => {
-				const parseDate = (dateStr: string) => {
-					const [day, month, year] = dateStr.split("-").map(Number);
-					return new Date(2000 + year, month - 1, day);
-				};
-				return parseDate(b.joined).getTime() - parseDate(a.joined).getTime();
+				return b.joined - a.joined;
 			})
 			.slice(0, 5);
 
@@ -108,18 +111,11 @@ const Dashboard: React.FC = () => {
 
 	if (students.length === 0) {
 		return (
-			<div className="mt-50 flex flex-col items-center justify-center py-20">
-				<div className="relative">
-					<div className="absolute inset-0 animate-ping">
-						<TbLayoutDashboardFilled size={80} className="text-blue-400/20" />
-					</div>
-					<TbLayoutDashboardFilled size={80} className="text-blue-400" />
-				</div>
-				<div className="text-white font-bold text-xl mt-6">NO ANALYSIS</div>
-				<p className="text-white/60 text-sm mt-2">
-					"ADD STUDENT" in the menu to get started
-				</p>
-			</div>
+			<EmptyState
+				icon={TbLayoutDashboardFilled}
+				title="NO ANALYSIS"
+				message='"ADD STUDENT" in the menu to get started'
+			/>
 		);
 	}
 
@@ -248,7 +244,7 @@ const Dashboard: React.FC = () => {
 								<IoStatsChart size={20} className="text-white/80" />
 							</div>
 							<p className="text-3xl font-black mb-1">
-								₹{stats.yearlyRevenue.toLocaleString()}
+								{formatCurrency(stats.yearlyRevenue)}
 							</p>
 							<div className="text-xs text-white/90 mb-2">
 								{stats.yearlyPaymentRate}% of capacity
@@ -260,7 +256,7 @@ const Dashboard: React.FC = () => {
 								/>
 							</div>
 							<p className="text-[10px] text-white/70 mt-1">
-								₹{stats.outstandingThisYear.toLocaleString()} remaining
+								{formatCurrency(stats.outstandingThisYear)} remaining
 							</p>
 						</div>
 					</div>
@@ -278,7 +274,7 @@ const Dashboard: React.FC = () => {
 								<FaRupeeSign size={20} className="text-white/80" />
 							</div>
 							<p className="text-3xl font-black mb-1">
-								₹{stats.totalAnnualRevenue.toLocaleString()}
+								{formatCurrency(stats.totalAnnualRevenue)}
 							</p>
 							<div className="text-xs text-white/90 mb-2">
 								Lifetime collections
@@ -424,7 +420,7 @@ const Dashboard: React.FC = () => {
 										Months
 									</th>
 									<th className="text-right py-2 px-2 text-xs font-semibold text-orange-300">
-										₹/Month
+										{CURRENCY_SYMBOL}/Month
 									</th>
 									<th className="text-right py-2 px-2 text-xs font-semibold text-orange-300">
 										Total

@@ -11,6 +11,10 @@ import {
 } from "react-icons/fa";
 import type { Student as StudentType } from "../../../store/types/Student.types";
 import StudentDetailsModal from "../../Modal/Details/Student/StudentDetailsModal";
+import { MONTHS_PER_YEAR } from "../../../constants";
+import { getPaymentStatus } from "../../../utils/paymentStatus";
+import { groupStudentsByClass } from "../../../utils/classGrouping";
+import EmptyState from "../../EmptyState/EmptyState";
 
 const Student: React.FC = () => {
 	const { students } = useStudentStore();
@@ -30,7 +34,7 @@ const Student: React.FC = () => {
 			const paidMonths = student.feeTracking[student.year] || [];
 			totalPaidFees += paidMonths.length * student.fees;
 
-			if (paidMonths.length === 12) fullyPaid++;
+			if (paidMonths.length === MONTHS_PER_YEAR) fullyPaid++;
 			else if (paidMonths.length > 0) partialPaid++;
 			else noPaid++;
 		});
@@ -52,58 +56,16 @@ const Student: React.FC = () => {
 
 	// GROUP BY CLASS CATEGORY
 	const groupedStudents = useMemo(() => {
-		const groups: Record<string, StudentType[]> = {
-			"1": [],
-			"2": [],
-			"3": [],
-			"4": [],
-			"5": [],
-			"6": [],
-			"7": [],
-			"8": [],
-			"9": [],
-			"10": [],
-			"11": [],
-			"12": [],
-			UG: [],
-			PG: [],
-		};
-
-		filteredStudents.forEach((student) => {
-			const level = student.level.toUpperCase();
-			if (groups[level]) {
-				groups[level].push(student);
-			}
-		});
-
-		// FILTER EMPTY
-		return Object.entries(groups).filter(
-			([_, students]) => students.length > 0,
-		);
+		return groupStudentsByClass(filteredStudents);
 	}, [filteredStudents]);
-
-	// STUDENT PAYMENT STATUS
-	const getPaymentStatus = (student: StudentType) => {
-		const paidMonths = student.feeTracking[student.year] || [];
-		if (paidMonths.length === 12) return "full";
-		if (paidMonths.length > 0) return "partial";
-		return "none";
-	};
 
 	if (students.length === 0) {
 		return (
-			<div className="mt-50 flex flex-col items-center justify-center py-20">
-				<div className="relative">
-					<div className="absolute inset-0 animate-ping">
-						<MdPeopleAlt size={80} className="text-blue-400/20" />
-					</div>
-					<MdPeopleAlt size={80} className="text-blue-400" />
-				</div>
-				<div className="text-white font-bold text-xl mt-6">NO STUDENT</div>
-				<p className="text-white/60 text-sm mt-2">
-					"ADD STUDENT" in the menu to get started
-				</p>
-			</div>
+			<EmptyState
+				icon={MdPeopleAlt}
+				title="NO STUDENT"
+				message='"ADD STUDENT" in the menu to get started'
+			/>
 		);
 	}
 
@@ -117,7 +79,7 @@ const Student: React.FC = () => {
 				</div>
 
 				{/* QUICK - STAT - CARDS */}
-				<div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+				<div className="grid grid-cols-2 gap-3 mb-4">
 					<div className="bg-linear-to-br from-blue-500 to-blue-600 rounded-xl p-3">
 						<div className="flex items-center gap-2 mb-1">
 							<MdPeopleAlt size={16} className="text-white" />
@@ -215,8 +177,8 @@ const Student: React.FC = () => {
 							{/* CARDS - GIRD */}
 							<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
 								{classStudents.map((student) => {
-									const paymentStatus = getPaymentStatus(student);
 									const paidMonths = student.feeTracking[student.year] || [];
+									const paymentStatus = getPaymentStatus(paidMonths.length);
 
 									return (
 										<button
