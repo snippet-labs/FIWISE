@@ -1,8 +1,8 @@
 {
-	"id": "com.mindlist.app",
-	"name": "MindList",
-	"short_name": "MindList",
-	"description": "List it out, clear your mind",
+	"id": "com.fiwise.app",
+	"name": "FiWise",
+	"short_name": "FiWise",
+	"description": "Multipurpose student management tool!",
 	"lang": "en",
 	"dir": "ltr",
 

@@ -1,5 +1,5 @@
-<img src="./resources/logo.png" style="height: 100px;">
+<img src="./resources/logo.png" style="height: 50px;">
 
-# FIWISE
+# FiWISE
 
 Multipurpose student management system made simple !
