@@ -1,4 +1,4 @@
 export interface MenuStore {
-	isOpen: boolean;
-	toggleMenu: () => void;
+  isOpen: boolean;
+  toggleMenu: () => void;
 }
